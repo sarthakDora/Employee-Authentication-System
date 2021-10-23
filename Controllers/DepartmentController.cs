@@ -65,11 +65,11 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				}
 				
 				, null);
-			return new JsonResult(dpts);
+			return new JsonResult("Added Successfully");
 			//return GetDepartment();
 		}
 		[HttpPut]
-		public void UpdateDepartment(Department dep)
+		public JsonResult UpdateDepartment(Department dep)
 		{
 			List<Department> dpts = new List<Department>();
 			var query = $"Update d SET DepartmentName = '{dep.DepartmentName}' from EMP.Department d where DepartmentId = {dep.DepartmentId}";
@@ -89,6 +89,7 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 
 				, null);
 
+			return new JsonResult("Updated");
 			//return GetDepartment();
 		}
 		[HttpDelete("{deptId}")]
