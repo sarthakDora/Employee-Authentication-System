@@ -133,7 +133,7 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				var httpRequest = Request.Form;
 				var postedFile = httpRequest.Files[0];
 				var fileName = postedFile.FileName;
-				var physicalPath = _env.ContentRootPath+"/Photos"+fileName;
+				var physicalPath = _env.ContentRootPath+"/Photos/"+fileName;
 				using(var stream = new FileStream(physicalPath, FileMode.Create))
 				{
 					postedFile.CopyTo(stream);
@@ -146,6 +146,24 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				return new JsonResult("Anonymous.jpg");
 			}
 
+		}
+		[Route("GetAllDepartmentsName")]
+		[HttpGet]
+		public List<string> GetAllDepts()
+		{
+			List<string> dpts = new List<string>();
+			var query = "select DepartmentName from EMP.department";
+			_iDBUtil.ExecuteQuery(query,
+				rdr =>
+				{
+					while (rdr.Read())
+					{
+						dpts.Add(rdr.GetString(0));
+					}
+				}
+				, null);
+			//return new JsonResult(dpts);
+			return dpts;
 		}
 		//[Route("SaveFile")]
 		//[HttpPost]
