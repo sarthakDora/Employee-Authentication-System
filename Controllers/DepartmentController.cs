@@ -23,7 +23,7 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 		}
 		
 		[HttpGet]
-		public List<Department> GetDepartment()
+		public JsonResult /*List<Department>*/ GetDepartment()
 		{
 			List<Department> dpts = new List<Department>();
 			var query = "select * from EMP.department";
@@ -41,12 +41,12 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 					}
 				}
 				, null);
-			//return new JsonResult(dpts);
-			return dpts;
+			return new JsonResult(dpts);
+			//return dpts;
 		}
 
 		[HttpPost]
-		public List<Department> AddDepartment(Department dep)
+		public JsonResult AddDepartment(Department dep)
 		{
 			List<Department> dpts = new List<Department>();
 			var query = $"INSERT  INTO EMP.Department(DepartmentName) values('{dep.DepartmentName}')";
@@ -65,11 +65,11 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				}
 				
 				, null);
-			//return new JsonResult(dpts);
-			return GetDepartment();
+			return new JsonResult(dpts);
+			//return GetDepartment();
 		}
 		[HttpPut]
-		public List<Department> UpdateDepartment(Department dep)
+		public void UpdateDepartment(Department dep)
 		{
 			List<Department> dpts = new List<Department>();
 			var query = $"Update d SET DepartmentName = '{dep.DepartmentName}' from EMP.Department d where DepartmentId = {dep.DepartmentId}";
@@ -88,10 +88,11 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				}
 
 				, null);
-			return GetDepartment();
+
+			//return GetDepartment();
 		}
 		[HttpDelete("{deptId}")]
-		public List<Department> DeleteDepartment(int deptId)
+		public void DeleteDepartment(int deptId)
 		{
 			List<Department> dpts = new List<Department>();
 			var query = $"Delete from EMP.Department  where DepartmentId = {deptId}";
@@ -110,7 +111,7 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				}
 
 				, null);
-			return GetDepartment();
+			//return GetDepartment();
 		}
 	}
 }
