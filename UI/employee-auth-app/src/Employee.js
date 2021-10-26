@@ -40,7 +40,7 @@ export class Employee extends Component {
         }
     }
     render(){
-        const { emps, empid, empname} = this.state;
+        const { emps, empid, empname, empLastName, empDOB} = this.state;
         let addModalClose=()=>this.setState({addModalShow:false});
         let editModalClose=()=>this.setState({editModalShow:false});
         return(
@@ -61,12 +61,12 @@ export class Employee extends Component {
                             <td>{emp.EmployeeID}</td>
                             <td>{emp.FirstName}</td>
                             <td>{emp.LastName}</td>
-                            <td>{emp.DateOfBirth}</td>
+                            <td>{(new Date(emp.DateOfBirth)).toLocaleDateString()}</td>
                             <td>
                                 <ButtonToolbar>
                                     <Button 
                                     className="mr-2" variant="info"
-                                     onClick={()=>this.setState({editModalShow:true, empid:emp.EmployeeID, empname:emp.FirstName})}>Edit</Button>
+                                     onClick={()=>this.setState({editModalShow:true, empid:emp.EmployeeID, empname:emp.FirstName, empLastName: emp.LastName, empDOB: (new Date(emp.DateOfBirth)).toLocaleDateString()})}>Edit</Button>
                                      <Button 
                                     className="mr-2" variant="danger"
                                      onClick={()=>this.deleteDep(emp.EmployeeID, emp.FirstName)}>Delete</Button>
@@ -75,6 +75,8 @@ export class Employee extends Component {
                                     onHide={editModalClose} 
                                     empid={empid}
                                     empname={empname}
+                                    empDOB = {empDOB}
+                                    empLastName={empLastName}
                                     ></EditEmpModal>
                   
                                    

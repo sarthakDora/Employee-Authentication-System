@@ -16,9 +16,9 @@ export class AddEmpModal extends Component
             'Accept':'application/json',
             'Content-Type':'application/json'},
         body:JSON.stringify({
-            FirstName:event.target.EmployeeFirstName.value
-            // LastName:event.target.EmployeeLastName.value,
-            // DateOfBirth:event.target.EmployeeDOB.value,
+            FirstName:event.target.EmployeeFirstName.value,
+            LastName:event.target.EmployeeLastName.value,
+            DateOfBirth:event.target.EmployeeDOB.value,
             // PhotoFIleName:event.target.EmployeePhoto.value
         })
         })

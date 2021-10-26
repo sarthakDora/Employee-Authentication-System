@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 
 export class EditEmpModal extends Component{
@@ -17,7 +17,10 @@ export class EditEmpModal extends Component{
             'Content-Type':'application/json'},
         body:JSON.stringify({
             EmployeeID:event.target.EmployeeID.value,
-            FirstName:event.target.EmployeeFirstName.value})
+            FirstName:event.target.EmployeeFirstName.value,
+            LastName:event.target.EmployeeLastName.value,
+            DateOfBirth: event.target.EmployeeDOB.value
+        })
         })
         .then(res =>res.json())
         .then((result)=>{
@@ -50,7 +53,7 @@ export class EditEmpModal extends Component{
                     <Col sm={6}>
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="EmployeeID">
-                            <Form.Label>EmployeeID</Form.Label>
+                            <Form.Label>Employee ID</Form.Label>
                             <Form.Control type = "text" name="EmployeeID" 
                             required 
                             disabled
@@ -58,11 +61,25 @@ export class EditEmpModal extends Component{
                             placeholder="EmployeeID"/>
                         </Form.Group>
                         <Form.Group controlId="EmployeeFirstName">
-                            <Form.Label>EmployeeFirstName</Form.Label>
+                            <Form.Label>First Name</Form.Label>
                             <Form.Control type = "text" name="EmployeeFirstName" 
                             required 
                             defaultValue = {this.props.empname}
                             placeholder="EmployeeFirstName"/>
+                        </Form.Group>
+                        <Form.Group controlId="EmployeeLastName">
+                            <Form.Label>Last Name</Form.Label>
+                            <Form.Control type = "text" name="EmployeeLastName" 
+                            required 
+                            defaultValue = {this.props.empLastName}
+                            placeholder="EmployeeLastName"/>
+                        </Form.Group>
+                        <Form.Group controlId="EmployeeDOB">
+                            <Form.Label>Date of Birth</Form.Label>
+                            <Form.Control type = "date" name="EmployeeDOB" 
+                            required 
+                            value = {this.props.empDOB}                          
+                            placeholder="date of birth"/>
                         </Form.Group>
                         <Form.Group>
                             <Button variant="primary" type="submit">
@@ -84,3 +101,4 @@ export class EditEmpModal extends Component{
         )
     }
 }
+

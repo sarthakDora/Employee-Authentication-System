@@ -78,25 +78,8 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 		public JsonResult Update(Employee emp)
 		{
 			List<Employee> emps = new List<Employee>();
-			var query = $"Update d SET FirstName = '{emp.FirstName}' from EMP.Employee d where ID = {emp.EmployeeID}";
-			_iDBUtil.ExecuteQuery(query,
-				rdr =>
-				{
-					while (rdr.Read())
-					{
-						var employee = new Employee()
-						{
-							EmployeeID = rdr.GetInt32(0),
-							FirstName = rdr.GetString(1),
-							LastName = rdr.GetString(2),
-							DateOfBirth = rdr.GetDateTime(3),
-							PhotoFIleName = rdr.GetString(4)
-						};
-						emps.Add(employee);
-					}
-				}
-
-				, null);
+			var query = $"Update d SET FirstName = '{emp.FirstName}', LastName = '{emp.LastName}', DateOfBirth = '{emp.DateOfBirth}' from EMP.Employee d where ID = {emp.EmployeeID}";
+			_iDBUtil.ExecuteQuery(query,null, null);
 			return new JsonResult("Updated");
 		}
 		[HttpDelete("{id}")]
