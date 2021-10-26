@@ -24,7 +24,7 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 			_env = env;
 		}
 		[HttpGet]
-		public List<Employee> Get()
+		public JsonResult /*List<Employee>*/ Get()
 		{
 			List<Employee> emps = new List<Employee>();
 			var query = "select * from emp.Employee";
@@ -45,11 +45,11 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 					}
 				}
 				, null);
-			return emps;
+			return new JsonResult(emps);//emps;
 		}
 
 		[HttpPost]
-		public List<Employee> Add(Employee emp)
+		public JsonResult Add(Employee emp)
 		{
 			List<Employee> emps = new List<Employee>();
 			var query = $"INSERT  INTO EMP.Employee(FirstName, LastName, DateOfBirth, PhotoFIleName) " +
@@ -72,10 +72,10 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				}
 
 				, null);
-			return Get();
+			return new JsonResult("Added Successfully");
 		}
 		[HttpPut]
-		public List<Employee> Update(Employee emp)
+		public JsonResult Update(Employee emp)
 		{
 			List<Employee> emps = new List<Employee>();
 			var query = $"Update d SET FirstName = '{emp.FirstName}' from EMP.Employee d where ID = {emp.EmployeeID}";
@@ -97,10 +97,10 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				}
 
 				, null);
-			return Get();
+			return new JsonResult("Updated");
 		}
 		[HttpDelete("{id}")]
-		public List<Employee> Delete(int id)
+		public void Delete(int id)
 		{
 			List<Employee> emps = new List<Employee>();
 			var query = $"Delete from EMP.Employee  where ID = {id}";
@@ -122,7 +122,7 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				}
 
 				, null);
-			return Get();
+			
 		}
 		[Route("SaveFile")]
 		[HttpPost]
@@ -149,7 +149,7 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 		}
 		[Route("GetAllDepartmentsName")]
 		[HttpGet]
-		public List<string> GetAllDepts()
+		public JsonResult /*List<string>*/ GetAllDepts()
 		{
 			List<string> dpts = new List<string>();
 			var query = "select DepartmentName from EMP.department";
@@ -163,7 +163,7 @@ namespace EmployeeAuthenticationWebAPI.Controllers
 				}
 				, null);
 			//return new JsonResult(dpts);
-			return dpts;
+			return new JsonResult(dpts);
 		}
 		//[Route("SaveFile")]
 		//[HttpPost]
